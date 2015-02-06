@@ -1,8 +1,0 @@
-#!/bin/bash
-
-main(){
-  echo "Restart ambari agent..."
-  /start-agent
-}
-
-[[ "$0" == "$BASH_SOURCE" ]] && main "$@"
