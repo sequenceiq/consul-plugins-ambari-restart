@@ -1,0 +1,15 @@
+#!/bin/bash
+
+: ${LOGFILE:=/tmp/ambari_consul_stop.log}
+: ${DEBUG:=1}
+
+main(){
+  debug "$(date) ambari agent stop event triggered."
+  ambari-agent stop -v
+}
+
+debug(){
+  [[ "$DEBUG" ]] && echo "[DEBUG] $*" >> $LOGFILE
+}
+
+[[ "$0" == "$BASH_SOURCE" ]] && main "$@"
