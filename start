@@ -5,7 +5,13 @@
 
 main(){
   debug "$(date) ambari agent start event triggered."
-  ambari-agent start -v
+  ambari-agent status
+  if [ $? -eq 0 ]; then
+      debug "Ambari agent already running."
+  else
+      debug "Ambari agent starting..."
+      ambari-agent start -v
+  fi
 }
 
 debug(){

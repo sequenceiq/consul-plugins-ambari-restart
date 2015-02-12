@@ -1,0 +1,20 @@
+#!/bin/bash
+
+: ${LOGFILE:=/tmp/ambari_consul_restart.log}
+: ${DEBUG:=1}
+
+main(){
+  debug "$(date) ambari agent restart event triggered."
+  ambari-agent restart -v
+  if [ $? -eq 0 ]; then
+      debug "Ambari agent restarted."
+  else
+      debug "Ambari agent restart failed."
+  fi
+}
+
+debug(){
+  [[ "$DEBUG" ]] && echo "[DEBUG] $*" >> $LOGFILE
+}
+
+[[ "$0" == "$BASH_SOURCE" ]] && main "$@"

@@ -5,7 +5,14 @@
 
 main(){
   debug "$(date) ambari agent stop event triggered."
-  ambari-agent stop -v
+  ambari-agent status
+  if [ $? -eq 3 ]; then
+      debug "Ambari agent already stopped."
+  else
+      debug "Ambari agent stopping..."
+      ambari-agent stop -v
+      debug "Ambari agent stopped"
+  fi
 }
 
 debug(){
