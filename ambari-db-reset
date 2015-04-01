@@ -1,0 +1,19 @@
+#!/bin/bash
+
+: ${LOGFILE:=/tmp/ambari_db_consul_reset.log}
+: ${DEBUG:=1}
+
+main(){
+  debug "$(date) ambari db reset event triggered."
+  PGPASSWORD=bigdata psql -h localhost -U ambari
+  UPDATE pg_database set datallowconn = 'false' where datname = 'postgres';
+  SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'postgres';
+  DROP database postgres;
+  CREATE database postgres;
+}
+
+debug(){
+  [[ "$DEBUG" ]] && echo "[DEBUG] $*" >> $LOGFILE
+}
+
+[[ "$0" == "$BASH_SOURCE" ]] && main "$@"
