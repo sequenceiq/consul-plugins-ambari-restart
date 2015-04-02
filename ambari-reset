@@ -5,7 +5,7 @@
 
 main(){
   debug "$(date) ambari reset event triggered."
-  ambari-server stop
+  jps | grep AmbariServer | awk {'print $1'} | xargs kill -9
   PGPASSWORD=bigdata psql -h $POSTGRES_DB -U ambari postgres < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
   ambari-server start
 }
