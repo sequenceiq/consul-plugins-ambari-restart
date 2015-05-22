@@ -4,7 +4,7 @@
 : ${DEBUG:=1}
 
 main(){
-  debug "$(date) ambari agent stop event triggered."
+  debug "ambari agent stop event triggered."
   ambari-agent status
   if [ $? -eq 3 ]; then
       debug "Ambari agent already stopped."
@@ -16,7 +16,7 @@ main(){
 }
 
 debug(){
-  [[ "$DEBUG" ]] && echo "[DEBUG] $*" >> $LOGFILE
+  [[ "$DEBUG" ]] && echo "[DEBUG] $(date) [ambari-agent] $*" >> $LOGFILE
 }
 
 [[ "$0" == "$BASH_SOURCE" ]] && main "$@"

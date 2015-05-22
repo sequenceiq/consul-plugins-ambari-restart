@@ -12,7 +12,7 @@ main(){
 }
 
 debug(){
-  [[ "$DEBUG" ]] && echo "[DEBUG] $*" >> $LOGFILE
+  [[ "$DEBUG" ]] && echo "[DEBUG] $(date) [ambari-db] $*" >> $LOGFILE
 }
 
 [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
