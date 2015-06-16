@@ -12,9 +12,9 @@ main(){
       debug "Ambari agent starting..."
       result=$(ambari-agent start -v)
       if echo $result | grep "already running" ; then
-          echo "Ambari agent already running."
+          debug "Ambari agent already running."
       elif echo $result | grep "Ambari Agent successfully started" ; then
-          echo "Ambari agent successfully started."
+          debug "Ambari agent successfully started."
       else
           exit -1
       fi
