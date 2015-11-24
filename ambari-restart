@@ -5,7 +5,7 @@
 
 main(){
   debug "ambari agent restart event triggered."
-  ambari-agent restart -v
+  ambari-agent restart
   if [ $? -eq 0 ]; then
       debug "Ambari agent restarted."
   else
