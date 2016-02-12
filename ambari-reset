@@ -6,8 +6,15 @@
 main(){
   debug "ambari reset event triggered."
   jps | grep AmbariServer | awk {'print $1'} | xargs kill -9
+  if [[ -z  "$POSTGRES_DB" ]]; then
+    export $(systemctl show-environment |grep POSTGRES_DB)
+  fi
   PGPASSWORD=bigdata psql -h $POSTGRES_DB -U ambari postgres < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
-  ambari-server start
+  if [[ -f /etc/systemd/system/ambari-server.service ]]; then
+    systemctl restart ambari-server.service
+  else
+    ambari-server start
+  fi
 }
 
 debug(){
